@@ -107,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: OutlineButton(
           color: Colors.black,
           highlightedBorderColor: Colors.black,
-          // padding: EdgeInsets.all(24.0),
+          padding: EdgeInsets.all(16.0),
           child: Image.asset('assets/images/$pngName.png'),
           onPressed: () => buttonPressed(buttonText),
         ),

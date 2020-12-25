@@ -1,22 +1,17 @@
 import 'dart:math';
 
-import 'package:audioplayers/audio_cache.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 
 class ChrisTreePage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) => Banner(
-        location: BannerLocation.bottomEnd,
-        message: '问题反馈',
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: '圣诞快乐',
-          theme: ThemeData(
-              primarySwatch: Colors.blue,
-              textTheme: TextTheme(bodyText2: TextStyle(color: Colors.white))),
-          home: MyTree(),
-        ),
+  Widget build(BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: '圣诞快乐',
+        theme: ThemeData(
+            primarySwatch: Colors.blue,
+            textTheme: TextTheme(bodyText2: TextStyle(color: Colors.white))),
+        home: MyTree(),
       );
 }
 
@@ -27,7 +22,7 @@ class MyTree extends StatefulWidget {
 
 class _MyTreeState extends State<MyTree> {
   AudioPlayer audioPlayer;
-  AudioCache audioCache = AudioCache();
+  bool isPlaying = false;
   @override
   void initState() {
     super.initState();
@@ -35,7 +30,21 @@ class _MyTreeState extends State<MyTree> {
   }
 
   playMusic() async {
-    audioPlayer = await audioCache.loop("jingle.mp3");
+    if (isPlaying) return;
+    audioPlayer ??= AudioPlayer();
+    var url =
+        'http://win.web.re01.sycdn.kuwo.cn/e04db958b400e446163b40678b292e15/5fe575d2/resource/n2/95/37/156941753.mp3';
+    audioPlayer.setUrl(url);
+
+    isPlaying = true;
+    audioPlayer.play();
+  }
+
+  stopMusic() {
+    if (!isPlaying) return;
+
+    isPlaying = false;
+    audioPlayer.stop();
   }
 
   @override
@@ -77,9 +86,11 @@ class _MyTreeState extends State<MyTree> {
               height: 20,
             ),
             RaisedButton(
-              child: Text("Stop"),
+              child: Text(isPlaying ? "Pause" : "Continue"),
               onPressed: () {
-                audioPlayer.stop();
+                setState(() {
+                  isPlaying ? stopMusic() : playMusic();
+                });
               },
             ),
             Row(children: [
@@ -88,7 +99,7 @@ class _MyTreeState extends State<MyTree> {
                 child: Text("问题反馈"),
                 onPressed: () {
                   showAboutDialog(context: context, children: [
-                    Text('遇到问题请截图发送到邮箱 hu.wt@qq.com\n或联系QQ 1328518369')
+                    Text('遇到问题请截图发送到\m邮箱hu.wt@qq.com\n或联系QQ 1328518369')
                   ]);
                 },
               )
