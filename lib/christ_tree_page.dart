@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -32,9 +33,13 @@ class _MyTreeState extends State<MyTree> {
   playMusic() async {
     if (isPlaying) return;
     audioPlayer ??= AudioPlayer();
-    var url =
-        'http://win.web.re01.sycdn.kuwo.cn/e04db958b400e446163b40678b292e15/5fe575d2/resource/n2/95/37/156941753.mp3';
-    audioPlayer.setUrl(url);
+    if (kIsWeb) {
+      var url =
+          'https://calc-shuttleclod-1259152223.cos.ap-nanjing.myqcloud.com/jingle.mp3';
+      audioPlayer.setUrl(url);
+    } else {
+      audioPlayer.setAsset('assets/jingle.mp3');
+    }
 
     isPlaying = true;
     audioPlayer.play();
@@ -80,7 +85,7 @@ class _MyTreeState extends State<MyTree> {
                 child: Text("问题反馈"),
                 onPressed: () {
                   showAboutDialog(context: context, children: [
-                    Text('遇到问题请截图发送到\m邮箱hu.wt@qq.com\n或联系QQ 1328518369')
+                    Text('如遇问题, \n请截图发送到 hu.wt@qq.com\n或联系QQ 1328518369')
                   ]);
                 },
               )

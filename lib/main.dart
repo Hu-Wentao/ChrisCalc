@@ -1,4 +1,5 @@
 import 'package:chris_calc/christ_tree_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -51,6 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
       num1 = 0.0;
       num2 = 0.0;
       operand = "";
+    } else if (buttonText == "±") {
+      num1 = -double.parse(output);
+      _output = num1.toString();
     } else if (buttonText == "+" ||
         buttonText == "-" ||
         buttonText == "/" ||
@@ -103,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: OutlineButton(
           color: Colors.black,
           highlightedBorderColor: Colors.black,
-          padding: EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(kIsWeb ? 24 : 8.0),
           child: Image.asset('assets/images/$pngName.png'),
           onPressed: () => buttonPressed(buttonText),
         ),
