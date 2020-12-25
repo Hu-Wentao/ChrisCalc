@@ -63,35 +63,16 @@ class _MyTreeState extends State<MyTree> {
         padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 8),
         child: ListView(
           children: <Widget>[
-            Center(
-              child: Icon(
-                Icons.star,
-                color: Colors.white,
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            for (final x in _offsets)
-              Light(
-                x: x,
-              ),
-            SizedBox(
-              height: 8,
-            ),
-            Center(
-              child: Text("Happy Holidays"),
-            ),
-            SizedBox(
-              height: 20,
-            ),
+            Center(child: Icon(Icons.star, color: Colors.white)),
+            SizedBox(height: 8),
+            for (final x in _offsets) Light(x: x),
+            SizedBox(height: 8),
+            Center(child: Text("Happy Holidays")),
+            SizedBox(height: 20),
             RaisedButton(
               child: Text(isPlaying ? "Pause" : "Continue"),
-              onPressed: () {
-                setState(() {
-                  isPlaying ? stopMusic() : playMusic();
-                });
-              },
+              onPressed: () =>
+                  setState(() => isPlaying ? stopMusic() : playMusic()),
             ),
             Row(children: [
               Expanded(child: Container()),

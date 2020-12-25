@@ -7,9 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Chris Calc',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(primarySwatch: Colors.blue),
         home: MyHomePage(title: 'Calculator'),
       );
 }
@@ -58,9 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
         buttonText == "/" ||
         buttonText == "X") {
       num1 = double.parse(output);
-
       operand = buttonText;
-
       _output = "0";
     } else if (buttonText == ".") {
       if (_output.contains(".")) {
